@@ -17,8 +17,8 @@ import org.apache.hadoop.mapred.JobConf;
 import org.apache.hadoop.mapred.RecordReader;
 import org.apache.hadoop.mapred.Reporter;
 
-import graphfu.XMLInputFormat;
-import graphfu.XMLInputFormat.XMLRecordReader;
+import entitysuggester.wikiparser.XMLInputFormat;
+import entitysuggester.wikiparser.XMLInputFormat.XMLRecordReader;
 
 public class WikiPageInputFormat extends FileInputFormat<LongWritable, Text> {
 
