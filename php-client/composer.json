@@ -1,0 +1,23 @@
+{
+    "name": "wes-php-client/wes-php-client",
+    "description": "PHP Client for Wikidata Entity Suggester",
+    "type": "library",
+    "keywords": ["wikidata", "entity-suggester", "myrrix", "recommendation"],
+    "homepage": "https://github.com/nilesh-c/wes-php-client",
+    "license": "MIT",
+    "stability": "dev",
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-0": { "WesPHPClient": "src/" }
+    },
+    "require": {
+        "guzzle/guzzle": "dev-master"
+    },
+    "authors": [
+        {
+            "name": "Nilesh Chakraborty",
+            "email": "nilesh@nileshc.com",
+            "homepage": "http://nileshc.com"
+        }
+    ]
+}
