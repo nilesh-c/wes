@@ -30,8 +30,8 @@ def parsePage(page):
     tree = etree.parse(StringIO(page))
     page = {child.tag:child.text for child in tree.iter()}
     try:
-        title = page['title'][1:]
         if page['ns'] == '0':
+            title = page['title'][1:]
             text = json.loads(page['text'])
             statement = None
             if 'claims' in text:
@@ -42,12 +42,14 @@ def parsePage(page):
                             toyield1 = str(statement['value'])
                             value = str(statement['wikibase-entityid']['numeric-id']) if 'wikibase-entityid' in statement else statement['string']
                             toyield2 = str(statement['value']) + "----" + value
-                            sys.stdout.write(toyield1.encode("utf-8", 'ignore'))
-                            sys.stdout.write(toyield2.encode("utf-8", 'ignore'))
+                            sys.stdout.write(toyield1.encode("utf-8", 'ignore') + "\n")
+                            sys.stdout.write(toyield2.encode("utf-8", 'ignore') + "\n")
                         except KeyError:
-                            toyield1 = toyield2 = None
-    except KeyError:
-        pass
+                            pass
+    except (KeyError, ValueError, TypeError) as e:
+        sys.stderr.write("Error occurred for page : " + str(title) + ", ns = " + str(page['ns']) + "\n")
+        sys.stderr.write(traceback.format_exc() + "\n")
+
 
 if __name__ == '__main__':
     main()

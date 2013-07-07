@@ -5,6 +5,7 @@ from StringIO import StringIO
 import json
 import sys
 import MySQLdb as mdb
+import traceback
 
 count = 0
 page = ''
@@ -13,7 +14,7 @@ def main():
     con = None
     cur = None
     try:
-        con = mdb.connect('localhost', 'root', 'password', 'wikidatawiki');
+        con = mdb.connect('localhost', 'root', 'orangetail', 'wikidatawiki');
         cur = con.cursor()
         cur.execute("SET FOREIGN_KEY_CHECKS = 0")
         cur.execute("SET UNIQUE_CHECKS = 0")
@@ -26,12 +27,12 @@ def main():
             if '<page>' in i:
                 i = sys.stdin.readline()
                 while '</page>' not in i:
-                    page += i#.strip()
+                    page += i
                     i = sys.stdin.readline()
                 page = '<page>' + page + '</page>'
                 parsePage(con, cur, page)
                 count += 1
-                if(count % 1000 == 0)
+                if(count % 10000 == 0):
                     con.commit()
     finally:
         if cur:
@@ -50,10 +51,12 @@ def parsePage(con, cur, page):
     tree = etree.parse(StringIO(page))
     page = {child.tag:child.text for child in tree.iter()}
     try:
-        title = page['title'][1:]
         if page['ns'] == '0':
+            title = page['title'][1:]
             text = json.loads(page['text'])
-            cur.execute("""INSERT INTO label VALUES (%s, %s, %s)""", (int(title), 'en', text['label']['en'].encode("utf-8", 'ignore')))
+            if 'en' not in text['label']: return
+            label = text['label']['en'].encode("utf-8", 'ignore')
+            cur.execute("""INSERT INTO label VALUES (%s, %s, %s)""", (int(title), 'en', label))
             statement = None
             if 'claims' in text:
                 for a in text['claims']:
@@ -63,15 +66,18 @@ def parsePage(con, cur, page):
                             toyield1 = str(statement['value'])
                             value = str(statement['wikibase-entityid']['numeric-id']) if 'wikibase-entityid' in statement else statement['string']
                             toyield2 = str(statement['value']) + "----" + value
-                            sys.stdout.write(toyield1.encode("utf-8", 'ignore'))
-                            sys.stdout.write(toyield2.encode("utf-8", 'ignore'))
+                            sys.stdout.write(toyield1.encode("utf-8", 'ignore') + "\n")
+                            sys.stdout.write(toyield2.encode("utf-8", 'ignore') + "\n")
                         except KeyError:
-                            toyield1 = toyield2 = None
+                            pass
         elif page['ns'] == '120':
+            title = page['title'][10:]
             text = json.loads(page['text'])
-            cur.execute("""INSERT INTO plabel VALUES (%s, %s, %s)""", (int(title), 'en', text['label']['en'].encode("utf-8", 'ignore')))
-    except KeyError:
-        pass
+            label = text['label']['en'].encode("utf-8", 'ignore')
+            cur.execute("""INSERT INTO plabel VALUES (%s, %s, %s)""", (int(title), 'en', label))
+    except (KeyError, ValueError, TypeError) as e:
+        sys.stderr.write("Error occurred for page : " + str(title) + ", ns = " + str(page['ns']) + "\n")
+        sys.stderr.write(traceback.format_exc() + "\n")
     except mdb.Error, e:
         print "Error %d: %s" % (e.args[0],e.args[1])
         sys.exit(1)
