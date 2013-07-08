@@ -5,7 +5,6 @@ from StringIO import StringIO
 import json
 import sys
 
-count = 0
 page = ''
 
 def main():
@@ -42,14 +41,15 @@ def parsePage(page):
                             toyield1 = str(statement['value'])
                             value = str(statement['wikibase-entityid']['numeric-id']) if 'wikibase-entityid' in statement else statement['string']
                             toyield2 = str(statement['value']) + "----" + value
-                            sys.stdout.write(toyield1.encode("utf-8", 'ignore') + "\n")
-                            sys.stdout.write(toyield2.encode("utf-8", 'ignore') + "\n")
+                            sys.stdout.write("||\t" + str(title) + "," + toyield1.encode("utf-8", 'ignore') + "\n")
+                            sys.stdout.write("||\t" + str(title) + "," + toyield2.encode("utf-8", 'ignore') + "\n")
+                            sys.stdout.write("$$\t" + toyield1.encode("utf-8", 'ignore') + "\n")
+                            sys.stdout.write("$$\t" + toyield2.encode("utf-8", 'ignore') + "\n")
                         except KeyError:
                             pass
     except (KeyError, ValueError, TypeError) as e:
         sys.stderr.write("Error occurred for page : " + str(title) + ", ns = " + str(page['ns']) + "\n")
         sys.stderr.write(traceback.format_exc() + "\n")
-
 
 if __name__ == '__main__':
     main()

@@ -14,7 +14,7 @@ def main():
     con = None
     cur = None
     try:
-        con = mdb.connect('localhost', 'root', 'orangetail', 'wikidatawiki');
+        con = mdb.connect('localhost', 'root', 'password', 'wikidatawiki');
         cur = con.cursor()
         cur.execute("SET FOREIGN_KEY_CHECKS = 0")
         cur.execute("SET UNIQUE_CHECKS = 0")
@@ -66,8 +66,10 @@ def parsePage(con, cur, page):
                             toyield1 = str(statement['value'])
                             value = str(statement['wikibase-entityid']['numeric-id']) if 'wikibase-entityid' in statement else statement['string']
                             toyield2 = str(statement['value']) + "----" + value
-                            sys.stdout.write(toyield1.encode("utf-8", 'ignore') + "\n")
-                            sys.stdout.write(toyield2.encode("utf-8", 'ignore') + "\n")
+                            sys.stdout.write("||\t" + str(title) + "," + toyield1.encode("utf-8", 'ignore') + "\n")
+                            sys.stdout.write("||\t" + str(title) + "," + toyield2.encode("utf-8", 'ignore') + "\n")
+                            sys.stdout.write("$$\t" + toyield1.encode("utf-8", 'ignore') + "\n")
+                            sys.stdout.write("$$\t" + toyield2.encode("utf-8", 'ignore') + "\n")
                         except KeyError:
                             pass
         elif page['ns'] == '120':
