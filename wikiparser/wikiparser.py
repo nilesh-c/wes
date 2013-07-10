@@ -41,10 +41,10 @@ def parsePage(page):
                             toyield1 = str(statement['value'])
                             value = str(statement['wikibase-entityid']['numeric-id']) if 'wikibase-entityid' in statement else statement['string']
                             toyield2 = str(statement['value']) + "----" + value
-                            sys.stdout.write("$$\t" + toyield1.encode("utf-8", 'ignore') + "\n")
-                            sys.stdout.write("$$\t" + toyield2.encode("utf-8", 'ignore') + "\n")
-                            sys.stdout.write("@@\t" + str(title) + "," + toyield1.encode("utf-8", 'ignore') + "\n")
-                            sys.stdout.write("@@\t" + str(title) + "," + toyield2.encode("utf-8", 'ignore') + "\n")
+                            sys.stdout.write("$$\t" + toyield1.encode("utf-8", 'ignore').strip() + "\n")
+                            sys.stdout.write("$$\t" + toyield2.encode("utf-8", 'ignore').strip() + "\n")
+                            sys.stdout.write("@@\t" + str(title) + "," + toyield1.encode("utf-8", 'ignore').strip() + "\n")
+                            sys.stdout.write("@@\t" + str(title) + "," + toyield2.encode("utf-8", 'ignore').strip() + "\n")
                         except KeyError:
                             pass
     except (KeyError, ValueError, TypeError) as e:
