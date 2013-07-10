@@ -1,6 +1,6 @@
-package entitysuggester.client.recommender;
+package org.wikimedia.wikibase.entitysuggester.client.recommender;
 
-import entitysuggester.client.CLIEntitySuggester;
+import org.wikimedia.wikibase.entitysuggester.client.CLIEntitySuggester;
 import java.io.File;
 import java.sql.*;
 import java.util.Arrays;

@@ -1,4 +1,4 @@
-package entitysuggester.rescorer;
+package org.wikimedia.wikibase.entitysuggester.rescorer;
 
 import java.io.File;
 import java.io.IOException;

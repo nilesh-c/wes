@@ -2,10 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package entitysuggester.client.servlets;
+package org.wikimedia.wikibase.entitysuggester.client.servlets;
 
 import com.google.common.base.Splitter;
-import entitysuggester.client.recommender.WebClientRecommender;
+import org.wikimedia.wikibase.entitysuggester.client.recommender.WebClientRecommender;
 import java.io.IOException;
 import java.net.URL;
 import javax.naming.Context;

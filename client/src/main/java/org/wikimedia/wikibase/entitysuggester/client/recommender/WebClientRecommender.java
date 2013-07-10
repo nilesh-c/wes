@@ -1,4 +1,4 @@
-package entitysuggester.client.recommender;
+package org.wikimedia.wikibase.entitysuggester.client.recommender;
 
 import java.io.File;
 import java.io.Reader;

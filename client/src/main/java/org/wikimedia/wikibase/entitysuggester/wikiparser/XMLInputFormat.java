@@ -1,4 +1,4 @@
-package entitysuggester.wikiparser;
+package org.wikimedia.wikibase.entitysuggester.wikiparser;
 
 /*
  * To change this template, choose Tools | Templates

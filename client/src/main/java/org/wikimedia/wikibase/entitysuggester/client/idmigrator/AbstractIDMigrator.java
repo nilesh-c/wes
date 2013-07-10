@@ -1,4 +1,4 @@
-package entitysuggester.client.idmigrator;
+package org.wikimedia.wikibase.entitysuggester.client.idmigrator;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

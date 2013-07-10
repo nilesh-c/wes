@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package entitysuggester.client.idmigrator;
+package org.wikimedia.wikibase.entitysuggester.client.idmigrator;
 
 /**
  *

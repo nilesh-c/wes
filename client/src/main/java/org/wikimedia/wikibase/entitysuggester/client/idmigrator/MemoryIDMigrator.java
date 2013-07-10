@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package entitysuggester.client.idmigrator;
+package org.wikimedia.wikibase.entitysuggester.client.idmigrator;
 
 import org.apache.mahout.cf.taste.model.UpdatableIDMigrator;
 import net.myrrix.common.collection.FastByIDMap;

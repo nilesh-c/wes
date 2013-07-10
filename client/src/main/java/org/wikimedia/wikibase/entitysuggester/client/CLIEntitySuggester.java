@@ -1,6 +1,6 @@
-package entitysuggester.client;
+package org.wikimedia.wikibase.entitysuggester.client;
 
-import entitysuggester.client.recommender.CLIClientRecommender;
+import org.wikimedia.wikibase.entitysuggester.client.recommender.CLIClientRecommender;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;

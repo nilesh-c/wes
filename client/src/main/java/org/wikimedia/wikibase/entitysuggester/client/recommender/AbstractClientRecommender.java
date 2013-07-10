@@ -2,10 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package entitysuggester.client.recommender;
+package org.wikimedia.wikibase.entitysuggester.client.recommender;
 
-import entitysuggester.client.idmigrator.MemoryIDMigrator;
-import entitysuggester.client.idmigrator.OneWayIDMigrator;
+import org.wikimedia.wikibase.entitysuggester.client.idmigrator.MemoryIDMigrator;
+import org.wikimedia.wikibase.entitysuggester.client.idmigrator.OneWayIDMigrator;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.List;

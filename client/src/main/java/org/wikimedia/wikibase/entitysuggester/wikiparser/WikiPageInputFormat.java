@@ -1,4 +1,4 @@
-package entitysuggester.wikiparser;
+package org.wikimedia.wikibase.entitysuggester.wikiparser;
 
 /*
  * To change this template, choose Tools | Templates
@@ -17,8 +17,8 @@ import org.apache.hadoop.mapred.JobConf;
 import org.apache.hadoop.mapred.RecordReader;
 import org.apache.hadoop.mapred.Reporter;
 
-import entitysuggester.wikiparser.XMLInputFormat;
-import entitysuggester.wikiparser.XMLInputFormat.XMLRecordReader;
+import org.wikimedia.wikibase.entitysuggester.wikiparser.XMLInputFormat;
+import org.wikimedia.wikibase.entitysuggester.wikiparser.XMLInputFormat.XMLRecordReader;
 
 public class WikiPageInputFormat extends FileInputFormat<LongWritable, Text> {
 
