@@ -4,6 +4,8 @@
  */
 package entitysuggester.client.recommender;
 
+import entitysuggester.client.idmigrator.MemoryIDMigrator;
+import entitysuggester.client.idmigrator.OneWayIDMigrator;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.List;
@@ -25,7 +27,7 @@ abstract class AbstractClientRecommender {
 
     public AbstractClientRecommender(MyrrixClientConfiguration myrrixClientConfiguration) {
         try {
-            clientRecommender = new TranslatingClientRecommender(new ClientRecommender(myrrixClientConfiguration));
+            clientRecommender = new TranslatingClientRecommender(new ClientRecommender(myrrixClientConfiguration), new OneWayIDMigrator(), new MemoryIDMigrator());
         } catch (IOException ex) {
             Logger.getLogger(CLIClientRecommender.class.getName()).log(Level.SEVERE, null, ex);
         }
