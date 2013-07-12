@@ -15,28 +15,24 @@ import org.apache.mahout.cf.taste.common.TasteException;
  */
 public class WebClientRecommender extends AbstractClientRecommender {
 
-    public WebClientRecommender(MyrrixClientConfiguration myrrixClientConfiguration) {
+    public WebClientRecommender(String idListFile, MyrrixClientConfiguration myrrixClientConfiguration) throws TasteException {
         super(myrrixClientConfiguration);
+        clientRecommender.addItemIDs(new File(idListFile));
+    }
+
+    public WebClientRecommender(URI idListFile, MyrrixClientConfiguration myrrixClientConfiguration) throws TasteException {
+        super(myrrixClientConfiguration);
+        clientRecommender.addItemIDs(new File(idListFile));
     }
 
     @Override
-    public List<TranslatedRecommendedItem> recommend(String idListFile, String recommendTo, String recommendType, int howMany) throws TasteException {
-        clientRecommender.addItemIDs(new File(idListFile));
+    public List<TranslatedRecommendedItem> recommend(String recommendTo, String recommendType, int howMany) throws TasteException {
         List<TranslatedRecommendedItem> recommendations = clientRecommender.recommend(recommendTo, howMany, false, new String[]{recommendType});
         return recommendations;
     }
 
     @Override
-    public List<TranslatedRecommendedItem> recommendAnonymous(String idListFile, String recommendType, int howMany, String[] list) throws TasteException {
-        clientRecommender.addItemIDs(new File(idListFile));
-        float[] values = new float[list.length];
-        Arrays.fill(values, 30);
-        List<TranslatedRecommendedItem> recommendations = clientRecommender.recommendToAnonymous(list, values, howMany, new String[]{recommendType}, "testID");
-        return recommendations;
-    }
-
-    public List<TranslatedRecommendedItem> recommendAnonymous(URI idListFile, String recommendType, int howMany, String[] list) throws TasteException {
-        clientRecommender.addItemIDs(new File(idListFile));
+    public List<TranslatedRecommendedItem> recommendAnonymous(String recommendType, int howMany, String[] list) throws TasteException {
         float[] values = new float[list.length];
         Arrays.fill(values, 30);
         List<TranslatedRecommendedItem> recommendations = clientRecommender.recommendToAnonymous(list, values, howMany, new String[]{recommendType}, "testID");

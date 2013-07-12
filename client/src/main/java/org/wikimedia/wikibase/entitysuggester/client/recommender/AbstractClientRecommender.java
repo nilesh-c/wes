@@ -31,9 +31,21 @@ abstract class AbstractClientRecommender {
         }
     }
 
-    public abstract List<TranslatedRecommendedItem> recommend(String idListFile, String recommendTo, String recommendType, int howMany) throws TasteException;
+    public List<TranslatedRecommendedItem> recommend(String recommendTo, String recommendType, int howMany) throws TasteException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
-    public abstract List<TranslatedRecommendedItem> recommendAnonymous(String idListFile, String recommendType, int howMany, String[] list) throws TasteException;
+    public List<TranslatedRecommendedItem> recommendAnonymous(String recommendType, int howMany, String[] list) throws TasteException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public List<TranslatedRecommendedItem> recommend(String idListFile, String recommendTo, String recommendType, int howMany) throws TasteException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public List<TranslatedRecommendedItem> recommendAnonymous(String idListFile, String recommendType, int howMany, String[] list) throws TasteException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
     public void ingest(String csvFile) throws TasteException {
     }

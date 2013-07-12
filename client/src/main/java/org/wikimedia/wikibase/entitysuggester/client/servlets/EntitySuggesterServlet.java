@@ -7,9 +7,7 @@ package org.wikimedia.wikibase.entitysuggester.client.servlets;
 import com.google.common.collect.Iterables;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.URISyntaxException;
 import java.util.List;
-import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
@@ -36,12 +34,8 @@ public class EntitySuggesterServlet extends AbstractEntitySuggesterServlet {
         }
 
         try {
-            List<TranslatedRecommendedItem> recommended = getClientRecommender().recommendAnonymous(getPropFilePath("proplist").toURI(), request.getParameter("type"), getHowMany(request), pathComponents);
+            List<TranslatedRecommendedItem> recommended = getClientRecommender().recommendAnonymous(request.getParameter("type"), getHowMany(request), pathComponents);
             output(request, response, recommended);
-        } catch (URISyntaxException use) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, use.toString());
-        } catch (NamingException ne) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, ne.toString());
         } catch (TasteException te) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, te.toString());
         }
