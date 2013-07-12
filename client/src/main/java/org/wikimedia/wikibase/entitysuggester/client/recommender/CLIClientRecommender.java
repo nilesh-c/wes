@@ -1,6 +1,5 @@
 package org.wikimedia.wikibase.entitysuggester.client.recommender;
 
-import org.wikimedia.wikibase.entitysuggester.client.CLIEntitySuggester;
 import java.io.File;
 import java.sql.*;
 import java.util.Arrays;
@@ -12,6 +11,7 @@ import java.util.logging.Logger;
 import net.myrrix.client.MyrrixClientConfiguration;
 import net.myrrix.client.translating.TranslatedRecommendedItem;
 import org.apache.mahout.cf.taste.common.TasteException;
+import org.wikimedia.wikibase.entitysuggester.client.CLIEntitySuggester;
 
 /**
  *

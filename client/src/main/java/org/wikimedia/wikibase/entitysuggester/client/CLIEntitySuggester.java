@@ -1,12 +1,12 @@
 package org.wikimedia.wikibase.entitysuggester.client;
 
-import org.wikimedia.wikibase.entitysuggester.client.recommender.CLIClientRecommender;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.ListIterator;
 import net.myrrix.client.MyrrixClientConfiguration;
 import org.apache.commons.cli.*;
+import org.wikimedia.wikibase.entitysuggester.client.recommender.CLIClientRecommender;
 
 /**
  *

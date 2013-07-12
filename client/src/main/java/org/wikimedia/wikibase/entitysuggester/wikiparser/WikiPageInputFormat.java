@@ -7,17 +7,9 @@ package org.wikimedia.wikibase.entitysuggester.wikiparser;
 
 
 import java.io.IOException;
-
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
-import org.apache.hadoop.mapred.FileInputFormat;
-import org.apache.hadoop.mapred.FileSplit;
-import org.apache.hadoop.mapred.InputSplit;
-import org.apache.hadoop.mapred.JobConf;
-import org.apache.hadoop.mapred.RecordReader;
-import org.apache.hadoop.mapred.Reporter;
-
-import org.wikimedia.wikibase.entitysuggester.wikiparser.XMLInputFormat;
+import org.apache.hadoop.mapred.*;
 import org.wikimedia.wikibase.entitysuggester.wikiparser.XMLInputFormat.XMLRecordReader;
 
 public class WikiPageInputFormat extends FileInputFormat<LongWritable, Text> {
