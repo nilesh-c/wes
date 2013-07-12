@@ -4,8 +4,6 @@
  */
 package org.wikimedia.wikibase.entitysuggester.client.recommender;
 
-import org.wikimedia.wikibase.entitysuggester.client.idmigrator.MemoryIDMigrator;
-import org.wikimedia.wikibase.entitysuggester.client.idmigrator.OneWayIDMigrator;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.List;
@@ -27,7 +25,7 @@ abstract class AbstractClientRecommender {
 
     public AbstractClientRecommender(MyrrixClientConfiguration myrrixClientConfiguration) {
         try {
-            clientRecommender = new TranslatingClientRecommender(new ClientRecommender(myrrixClientConfiguration), new OneWayIDMigrator(), new MemoryIDMigrator());
+            clientRecommender = new TranslatingClientRecommender(new ClientRecommender(myrrixClientConfiguration));
         } catch (IOException ex) {
             Logger.getLogger(CLIClientRecommender.class.getName()).log(Level.SEVERE, null, ex);
         }
