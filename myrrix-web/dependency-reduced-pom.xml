@@ -27,7 +27,7 @@
             <configuration>
               <transformers>
                 <transformer>
-                  <mainClass>entitysuggester.client.MyrrixRunner</mainClass>
+                  <mainClass>org.wikimedia.wikibase.entitysuggester.client.MyrrixRunner</mainClass>
                 </transformer>
               </transformers>
             </configuration>

@@ -23,7 +23,7 @@
             <configuration>
               <transformers>
                 <transformer>
-                  <mainClass>entitysuggester.client.CLIEntitySuggester</mainClass>
+                  <mainClass>org.wikimedia.wikibase.entitysuggester.client.CLIEntitySuggester</mainClass>
                 </transformer>
               </transformers>
             </configuration>

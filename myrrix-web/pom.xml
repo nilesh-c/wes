@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <parent>
-        <groupId>entitysuggester</groupId>
+        <groupId>org.wikimedia.wikibase</groupId>
         <artifactId>entitysuggester</artifactId>
         <version>0.0.2</version>
     </parent>
@@ -54,14 +54,24 @@
             <artifactId>myrrix-online</artifactId>
             <version>0.11</version>
         </dependency>
-        <dependency>
-            <groupId>entitysuggester</groupId>
+<!--        <dependency>
+            <groupId>org.wikimedia.wikibase.entitysuggester</groupId>
             <artifactId>rescorer</artifactId>
             <version>0.0.2</version>
         </dependency>
         <dependency>
-            <groupId>entitysuggester</groupId>
+            <groupId>org.wikimedia.wikibase.entitysuggester</groupId>
             <artifactId>client</artifactId>
+            <version>0.0.2</version>
+        </dependency>-->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>client</artifactId>
+            <version>0.0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>rescorer</artifactId>
             <version>0.0.2</version>
         </dependency>
         <dependency>

@@ -4,7 +4,7 @@
                              http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>entitysuggester</groupId>
+    <groupId>org.wikimedia.wikibase</groupId>
     <artifactId>entitysuggester</artifactId>
     <packaging>pom</packaging>
     <version>0.0.2</version>
