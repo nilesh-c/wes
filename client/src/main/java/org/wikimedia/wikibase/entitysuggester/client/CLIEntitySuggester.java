@@ -9,6 +9,8 @@ import org.apache.commons.cli.*;
 import org.wikimedia.wikibase.entitysuggester.client.recommender.CLIClientRecommender;
 
 /**
+ * The command line parser/driver for using the suggester from the console.
+ * Mainly used for debugging purposes.
  *
  * @author Nilesh Chakraborty
  */

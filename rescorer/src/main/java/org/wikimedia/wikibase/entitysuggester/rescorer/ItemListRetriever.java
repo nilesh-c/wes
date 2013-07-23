@@ -7,6 +7,11 @@ import net.myrrix.common.random.MemoryIDMigrator;
 import org.apache.mahout.common.iterator.FileLineIterable;
 
 /**
+ * Used with EntityRescorerProvider to initialize an IDMigrator instance and use
+ * it to translate wikibaseProperty or wikibaseValue IDs.
+ *
+ * This may be removed or refactored heavily shortly if I remove wikibaseValue
+ * suggestion from this part of the suggester.
  *
  * @author Nilesh Chakraborty
  */

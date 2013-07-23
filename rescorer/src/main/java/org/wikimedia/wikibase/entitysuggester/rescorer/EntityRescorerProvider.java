@@ -13,6 +13,12 @@ import net.myrrix.online.AbstractRescorerProvider;
 import org.apache.mahout.cf.taste.recommender.IDRescorer;
 
 /**
+ * Rescorer factory to use with Myrrix to support suggestion of both
+ * wikibaseProperties and wikibaseValues.
+ *
+ * This may be removed or refactored heavily shortly if I remove wikibaseValue
+ * suggestion from this part of the suggester.
+ *
  * @author Nilesh Chakraborty
  */
 public class EntityRescorerProvider extends AbstractRescorerProvider {
