@@ -20,6 +20,7 @@ import org.apache.mahout.cf.taste.common.TasteException;
 import org.wikimedia.wikibase.entitysuggester.client.recommender.WebClientRecommender;
 
 /**
+ * Base class for all client servlets
  *
  * @author nilesh
  */
@@ -28,6 +29,13 @@ public abstract class AbstractEntitySuggesterServlet extends AbstractMyrrixServl
     static final Splitter SLASH = Splitter.on('/').omitEmptyStrings();
     private WebClientRecommender recommender = null;
 
+    /**
+     *
+     * @param request
+     * @param response
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         if (recommender == null) {
@@ -35,6 +43,13 @@ public abstract class AbstractEntitySuggesterServlet extends AbstractMyrrixServl
         }
     }
 
+    /**
+     *
+     * @param request
+     * @param response
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         if (recommender == null) {
@@ -42,10 +57,22 @@ public abstract class AbstractEntitySuggesterServlet extends AbstractMyrrixServl
         }
     }
 
+    /**
+     *
+     * @return
+     */
     protected final WebClientRecommender getClientRecommender() {
         return recommender;
     }
 
+    /**
+     * Used to find the path of the file with the of wikibaseProperties. The
+     * file name is set in the WAR's web.xml
+     *
+     * @param name
+     * @return
+     * @throws NamingException
+     */
     protected final URL getPropFilePath(String name) throws NamingException {
         Context initCtx = new InitialContext();
         Context envCtx = (Context) initCtx.lookup("java:comp/env");
@@ -54,7 +81,14 @@ public abstract class AbstractEntitySuggesterServlet extends AbstractMyrrixServl
         return filePath;
     }
 
-    private void initializeClientRecommender(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    /**
+     * Initialize the WebClientRecommender instance for one time only.
+     *
+     * @param request
+     * @param response
+     * @throws IOException
+     */
+    public void initializeClientRecommender(HttpServletRequest request, HttpServletResponse response) throws IOException {
         synchronized (this) {
             if (recommender == null) {
                 try {

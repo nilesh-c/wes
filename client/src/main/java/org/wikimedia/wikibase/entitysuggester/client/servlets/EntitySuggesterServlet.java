@@ -16,11 +16,20 @@ import net.myrrix.client.translating.TranslatedRecommendedItem;
 import org.apache.mahout.cf.taste.common.TasteException;
 
 /**
- *
- * @author nilesh
+ * This is part of the actual REST API - client servlet to suggest
+ * wikibaseProperties for already existing (TODO) or anonymous wikibaseItems
+ * @author Nilesh Chakraborty
  */
 public class EntitySuggesterServlet extends AbstractEntitySuggesterServlet {
 
+    /**
+     * Handle a HTTP GET request to suggest wikibaseProperties for anonymous
+     * wikibaseItems (that don't exist in the dataset)
+     * @param request
+     * @param response
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         super.doGet(request, response);
@@ -41,6 +50,13 @@ public class EntitySuggesterServlet extends AbstractEntitySuggesterServlet {
         }
     }
 
+    /**
+     * Output JSON-formatted results.
+     * @param request
+     * @param response
+     * @param items
+     * @throws IOException
+     */
     protected final void output(HttpServletRequest request,
             ServletResponse response,
             List<TranslatedRecommendedItem> items) throws IOException {

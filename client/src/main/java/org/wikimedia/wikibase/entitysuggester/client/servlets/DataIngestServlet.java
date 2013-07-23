@@ -15,11 +15,24 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.mahout.cf.taste.common.TasteException;
 
 /**
+ * This is part of the actual REST API - client servlet to feed/train the Myrrix
+ * engine with a csv file.
  *
- * @author nilesh
+ * @see WebClientRecommender.ingest()
+ *
+ * @author Nilesh Chakraborty
  */
 public class DataIngestServlet extends AbstractEntitySuggesterServlet {
 
+    /**
+     * Handle a HTTP POST request where the training file contents are sent in
+     * the POST body.
+     *
+     * @param request
+     * @param response
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         super.doPost(request, response);
