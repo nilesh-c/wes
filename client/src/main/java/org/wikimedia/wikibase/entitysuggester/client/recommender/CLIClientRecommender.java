@@ -14,6 +14,9 @@ import org.apache.mahout.cf.taste.common.TasteException;
 import org.wikimedia.wikibase.entitysuggester.client.CLIEntitySuggester;
 
 /**
+ * Command-line ClientRecommender mainly used for debugging purposes. This is
+ * used to fetch suggestions and write the results to the console by taking the
+ * wikibaseProperty and wikibaseItems labels from a MySQL database.
  *
  * @author Nilesh Chakraborty
  */
@@ -24,10 +27,21 @@ public class CLIClientRecommender extends AbstractClientRecommender {
     private String dbUser;
     private String dbPassword;
 
+    /**
+     *
+     * @param myrrixClientConfiguration
+     */
     public CLIClientRecommender(MyrrixClientConfiguration myrrixClientConfiguration) {
         super(myrrixClientConfiguration);
     }
 
+    /**
+     *
+     * @param dbHost
+     * @param dbName
+     * @param dbUser
+     * @param dbPassword
+     */
     public void setDatabaseInfo(String dbHost, String dbName, String dbUser, String dbPassword) {
         this.dbHost = dbHost;
         this.dbName = dbName;
@@ -35,6 +49,16 @@ public class CLIClientRecommender extends AbstractClientRecommender {
         this.dbUser = dbUser;
     }
 
+    /**
+     * Used to fetch wikibaseProperty suggestions for already existing
+     * wikibaseItems.
+     *
+     * @param idListFile
+     * @param recommendTo
+     * @param recommendType
+     * @param howMany
+     * @return
+     */
     @Override
     public List<TranslatedRecommendedItem> recommend(String idListFile, String recommendTo, String recommendType, int howMany) {
         try {
@@ -48,6 +72,16 @@ public class CLIClientRecommender extends AbstractClientRecommender {
         return null;
     }
 
+    /**
+     * Used to fetch wikibaseProperty suggestions for already anonymous (perhaps
+     * being created) wikibaseItems.
+     *
+     * @param idListFile
+     * @param recommendType
+     * @param howMany
+     * @param list
+     * @return
+     */
     @Override
     public List<TranslatedRecommendedItem> recommendAnonymous(String idListFile, String recommendType, int howMany, String[] list) {
         try {
@@ -62,6 +96,12 @@ public class CLIClientRecommender extends AbstractClientRecommender {
         return null;
     }
 
+    /**
+     * Used to feed/train Myrrix with a csv file containing rows of
+     * wikibaseItem, wikibaseProperty, weight
+     *
+     * @param csvFile
+     */
     @Override
     public void ingest(String csvFile) {
         try {
@@ -72,6 +112,17 @@ public class CLIClientRecommender extends AbstractClientRecommender {
         }
     }
 
+    /**
+     * Writes suggestion results to the console by taking the wikibaseProperty
+     * and wikibaseItems labels from a MySQL database.
+     *
+     * @param recommendations
+     * @param recommendType
+     * @param dbHost
+     * @param dbName
+     * @param dbUser
+     * @param dbPassword
+     */
     private void writeResults(List<TranslatedRecommendedItem> recommendations, String recommendType, String dbHost, String dbName, String dbUser, String dbPassword) {
         if (!recommendations.isEmpty()) {
             Connection connect = null;

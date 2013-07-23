@@ -16,8 +16,15 @@ import net.myrrix.client.translating.TranslatingClientRecommender;
 import org.apache.mahout.cf.taste.common.TasteException;
 
 /**
+ * Extend this class to delegate calls for suggesting wikibaseProperties for
+ * already existing and new wikibaseItems to a Myrrix
+ * TranslatingClientRecommender object.
  *
- * @author nilesh
+ * ClientRecommenders are basically Java wrappers used to query the Myrrix
+ * servlets using TranslatingClientRecommenders to handle String IDs to numeric
+ * hashes to be used with Myrrix.
+ *
+ * @author Nilesh Chakraborty
  */
 abstract class AbstractClientRecommender {
 
