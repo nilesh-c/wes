@@ -14,6 +14,7 @@ import org.apache.mahout.cf.taste.common.TasteException;
 /**
  * This is part of the actual REST API - client servlet to suggest
  * wikibaseProperties for already existing (TODO) or anonymous wikibaseItems
+ * 
  * @author Nilesh Chakraborty
  */
 public class EntitySuggesterServlet extends AbstractEntitySuggesterServlet {
