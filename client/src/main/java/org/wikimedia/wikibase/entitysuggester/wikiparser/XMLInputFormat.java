@@ -50,7 +50,7 @@ public class XMLInputFormat extends TextInputFormat {
      * @param inputSplit
      * @param jobConf
      * @param reporter
-     * @return
+     * @return RecordReader for Hadoop
      * @throws IOException
      */
     @Override
@@ -130,7 +130,7 @@ public class XMLInputFormat extends TextInputFormat {
          *
          * @param key
          * @param value
-         * @return
+         * @return true if next key value pair is found
          * @throws IOException
          */
         @Override
@@ -171,19 +171,11 @@ public class XMLInputFormat extends TextInputFormat {
             return false;
         }
 
-        /**
-         *
-         * @return
-         */
         @Override
         public LongWritable createKey() {
             return new LongWritable();
         }
 
-        /**
-         *
-         * @return
-         */
         @Override
         public Text createValue() {
             return new Text();
@@ -191,7 +183,7 @@ public class XMLInputFormat extends TextInputFormat {
 
         /**
          *
-         * @return @throws IOException
+         * @throws IOException
          */
         @Override
         public long getPos() throws IOException {
@@ -209,25 +201,17 @@ public class XMLInputFormat extends TextInputFormat {
 
         /**
          *
-         * @return @throws IOException
+         * @throws IOException
          */
         @Override
         public float getProgress() throws IOException {
             return ((float) (pos - start)) / ((float) (end - start));
         }
 
-        /**
-         *
-         * @return
-         */
         public long getStart() {
             return start;
         }
 
-        /**
-         *
-         * @return
-         */
         public long getEnd() {
             return end;
         }

@@ -50,7 +50,8 @@ public class WebClientRecommender extends AbstractClientRecommender {
      * @param recommendTo
      * @param recommendType
      * @param howMany
-     * @return
+     * @return List of TranslatedRecommendedItems, the suggested
+     * wikibaseProperties
      * @throws TasteException
      */
     @Override
@@ -66,7 +67,8 @@ public class WebClientRecommender extends AbstractClientRecommender {
      * @param recommendType
      * @param howMany
      * @param list
-     * @return
+     * @return List of TranslatedRecommendedItems, the suggested
+     * wikibaseProperties
      * @throws TasteException
      */
     @Override

@@ -26,7 +26,7 @@ public class WikiPageInputFormat extends FileInputFormat<LongWritable, Text> {
      * @param split
      * @param conf
      * @param reporter
-     * @return
+     * @return RecordReader for Hadoop
      * @throws IOException
      */
     @Override

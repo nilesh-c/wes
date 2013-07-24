@@ -18,7 +18,7 @@ import org.wikimedia.wikibase.entitysuggester.client.recommender.WebClientRecomm
 /**
  * Base class for all client servlets
  *
- * @author nilesh
+ * @author Nilesh Chakraborty
  */
 public abstract class AbstractEntitySuggesterServlet extends AbstractMyrrixServlet {
 
@@ -55,7 +55,7 @@ public abstract class AbstractEntitySuggesterServlet extends AbstractMyrrixServl
 
     /**
      *
-     * @return
+     * @return the WebClientRecommender instance
      */
     protected final WebClientRecommender getClientRecommender() {
         return recommender;
@@ -66,7 +66,7 @@ public abstract class AbstractEntitySuggesterServlet extends AbstractMyrrixServl
      * file name is set in the WAR's web.xml
      *
      * @param name
-     * @return
+     * @return URL of the wikibaseProperty list file
      * @throws NamingException
      */
     protected final URL getPropFilePath(String name) throws NamingException {

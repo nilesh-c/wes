@@ -57,7 +57,8 @@ public class CLIClientRecommender extends AbstractClientRecommender {
      * @param recommendTo
      * @param recommendType
      * @param howMany
-     * @return
+     * @return List of TranslatedRecommendedItems, the suggested
+     * wikibaseProperties
      */
     @Override
     public List<TranslatedRecommendedItem> recommend(String idListFile, String recommendTo, String recommendType, int howMany) {
@@ -80,7 +81,8 @@ public class CLIClientRecommender extends AbstractClientRecommender {
      * @param recommendType
      * @param howMany
      * @param list
-     * @return
+     * @return List of TranslatedRecommendedItems, the suggested
+     * wikibaseProperties
      */
     @Override
     public List<TranslatedRecommendedItem> recommendAnonymous(String idListFile, String recommendType, int howMany, String[] list) {
