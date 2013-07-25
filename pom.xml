@@ -12,7 +12,6 @@
 
     <modules>
         <module>client</module>
-        <module>rescorer</module>
         <module>myrrix-web</module>
     </modules>
 
@@ -31,6 +30,12 @@
         </pluginManagement>
     </build>
     <dependencies>
+	<dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>1.9.5</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
