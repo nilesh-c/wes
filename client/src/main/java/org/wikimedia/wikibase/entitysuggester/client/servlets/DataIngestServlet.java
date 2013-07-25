@@ -2,13 +2,20 @@ package org.wikimedia.wikibase.entitysuggester.client.servlets;
 
 import com.google.common.base.Charsets;
 import java.io.*;
+import java.net.URISyntaxException;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.zip.GZIPInputStream;
+import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import net.myrrix.client.ClientRecommender;
+import net.myrrix.client.MyrrixClientConfiguration;
+import net.myrrix.client.translating.TranslatingClientRecommender;
 import org.apache.mahout.cf.taste.common.TasteException;
+import org.wikimedia.wikibase.entitysuggester.client.recommender.WebClientRecommender;
 
 /**
  * This is part of the actual REST API - client servlet to feed/train the Myrrix
@@ -46,16 +53,31 @@ public class DataIngestServlet extends AbstractEntitySuggesterServlet {
         }
 
         BufferedReader br = new BufferedReader(reader);
-        String a;
-        StringBuilder sb = new StringBuilder();
-        while ((a = br.readLine()) != null) {
-            if (a.contains(",")) {
-                sb.append(a).append("\n");
+        ArrayList<String> myrrixItemList = new ArrayList<String>();
+        String temp;
+        StringBuilder dataBuilder = new StringBuilder();
+        while ((temp = br.readLine()) != null) {
+            if (temp.contains(",")) {
+                dataBuilder.append(temp).append("\n");
+                String[] chunks = temp.split(",");
+                String property = "";
+                for (int i = 1; i < chunks.length - 1; i++) { // Extract only the middle portion (the wikibaseProperty)
+                    property += chunks[i];
+                }
+                myrrixItemList.add(property); // Creating the list of wikibaseProperties
             }
         }
 
         try {
-            getClientRecommender().ingest(new StringReader(sb.toString()));
+            MyrrixClientConfiguration config = new MyrrixClientConfiguration();
+            config.setHost(request.getServerName());
+            config.setPort(request.getServerPort());
+            if (getServletConfig().getServletContext().getAttribute("recommender") == null) {
+                WebClientRecommender webClientRecommender = new WebClientRecommender(new TranslatingClientRecommender(new ClientRecommender(config)));
+                getServletConfig().getServletContext().setAttribute("recommender", webClientRecommender);
+            }
+            getClientRecommender().addPropertyIDs(myrrixItemList);
+            getClientRecommender().ingest(new StringReader(dataBuilder.toString()));
         } catch (IllegalArgumentException iae) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, iae.toString());
         } catch (NoSuchElementException nsee) {

@@ -5,8 +5,8 @@ import java.io.Reader;
 import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
-import net.myrrix.client.MyrrixClientConfiguration;
 import net.myrrix.client.translating.TranslatedRecommendedItem;
+import net.myrrix.client.translating.TranslatingRecommender;
 import org.apache.mahout.cf.taste.common.TasteException;
 
 /**
@@ -19,63 +19,57 @@ public class WebClientRecommender extends AbstractClientRecommender {
     /**
      * Create a WebClientRecommender.
      *
-     * @param idListFile - The path to the file with the list of
-     * wikibaseProperties This may be removed in the near future, if I remove
-     * wikibaseValue suggestion from this part of the suggester engine.
-     * @param myrrixClientConfiguration
+     * @param translatingRecommender
      * @throws TasteException
      */
-    public WebClientRecommender(String idListFile, MyrrixClientConfiguration myrrixClientConfiguration) throws TasteException {
-        super(myrrixClientConfiguration);
-        clientRecommender.addItemIDs(new File(idListFile));
+    public WebClientRecommender(TranslatingRecommender translatingRecommender) throws TasteException {
+        super(translatingRecommender);
     }
 
     /**
-     * Same as above, except that it takes a URI instead of a String for
-     * specifying the idListFile path.
+     * Create a WebClientRecommender.
      *
-     * @param idListFile
-     * @param myrrixClientConfiguration
-     * @throws TasteException
+     * @param myrrixItemIdList - It is the list of all wikibaseProperties (as
+     * Strings) in the data pushed through DataIngestServlet. This is a list
+     * kept in memory used by the TranslatingClientRecommender to be able to
+     * translate between the internal hashed numeric representation of the Pxxxx
+     * wikibaseProperty Strings.
      */
-    public WebClientRecommender(URI idListFile, MyrrixClientConfiguration myrrixClientConfiguration) throws TasteException {
-        super(myrrixClientConfiguration);
-        clientRecommender.addItemIDs(new File(idListFile));
+    public void addPropertyIDs(List<String> myrrixItemIdList) {
+        clientRecommender.addItemIDs(myrrixItemIdList);
     }
 
     /**
      * Used to fetch wikibaseProperty suggestions for already existing
      * wikibaseItems.
      *
-     * @param recommendTo
-     * @param recommendType
+     * @param recommendTo - a wikibaseItem as a String. All wikibaseItems and
+     * wikibaseProperties as given with their prefixes
      * @param howMany
      * @return List of TranslatedRecommendedItems, the suggested
      * wikibaseProperties
      * @throws TasteException
      */
     @Override
-    public List<TranslatedRecommendedItem> recommend(String recommendTo, String recommendType, int howMany) throws TasteException {
-        List<TranslatedRecommendedItem> recommendations = clientRecommender.recommend(recommendTo, howMany, false, new String[]{recommendType});
+    public List<TranslatedRecommendedItem> recommend(String recommendTo, int howMany) throws TasteException {
+        List<TranslatedRecommendedItem> recommendations = clientRecommender.recommend(recommendTo, howMany);
         return recommendations;
     }
 
     /**
-     * Used to fetch wikibaseProperty suggestions for already anonymous (perhaps
-     * being created) wikibaseItems.
+     * Used to fetch wikibaseProperty suggestions for anonymous (perhaps being
+     * created) wikibaseItems.
      *
-     * @param recommendType
      * @param howMany
-     * @param list
+     * @param forProperties - An array of wikibaseProperties that are used in
+     * the anonymous wikibaseItem
      * @return List of TranslatedRecommendedItems, the suggested
      * wikibaseProperties
      * @throws TasteException
      */
     @Override
-    public List<TranslatedRecommendedItem> recommendAnonymous(String recommendType, int howMany, String[] list) throws TasteException {
-        float[] values = new float[list.length];
-        Arrays.fill(values, 30);
-        List<TranslatedRecommendedItem> recommendations = clientRecommender.recommendToAnonymous(list, values, howMany, new String[]{recommendType}, "testID");
+    public List<TranslatedRecommendedItem> recommendAnonymous(String[] forProperties, int howMany) throws TasteException {
+        List<TranslatedRecommendedItem> recommendations = clientRecommender.recommendToAnonymous(forProperties, howMany);
         return recommendations;
     }
 

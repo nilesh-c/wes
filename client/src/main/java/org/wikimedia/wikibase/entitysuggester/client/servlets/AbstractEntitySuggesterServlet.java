@@ -2,15 +2,21 @@ package org.wikimedia.wikibase.entitysuggester.client.servlets;
 
 import com.google.common.base.Splitter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.List;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import net.myrrix.client.ClientRecommender;
 import net.myrrix.client.MyrrixClientConfiguration;
+import net.myrrix.client.translating.TranslatedRecommendedItem;
+import net.myrrix.client.translating.TranslatingClientRecommender;
 import net.myrrix.web.servlets.AbstractMyrrixServlet;
 import org.apache.mahout.cf.taste.common.TasteException;
 import org.wikimedia.wikibase.entitysuggester.client.recommender.WebClientRecommender;
@@ -26,80 +32,50 @@ public abstract class AbstractEntitySuggesterServlet extends AbstractMyrrixServl
     private WebClientRecommender recommender = null;
 
     /**
-     *
-     * @param request
-     * @param response
-     * @throws IOException
-     * @throws ServletException
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        if (recommender == null) {
-            initializeClientRecommender(request, response);
-        }
-    }
-
-    /**
-     *
-     * @param request
-     * @param response
-     * @throws IOException
-     * @throws ServletException
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        if (recommender == null) {
-            initializeClientRecommender(request, response);
-        }
-    }
-
-    /**
+     * Initializes the WebClientRecommender if it's null and returns it
      *
      * @return the WebClientRecommender instance
      */
     protected final WebClientRecommender getClientRecommender() {
+        if (recommender == null) {
+            synchronized (this) {
+                if (recommender == null) {
+                    recommender = (WebClientRecommender) this.getServletConfig().getServletContext().getAttribute("recommender");
+                }
+            }
+        }
         return recommender;
     }
 
     /**
-     * Used to find the path of the file with the of wikibaseProperties. The
-     * file name is set in the WAR's web.xml
-     *
-     * @param name
-     * @return URL of the wikibaseProperty list file
-     * @throws NamingException
-     */
-    protected final URL getPropFilePath(String name) throws NamingException {
-        Context initCtx = new InitialContext();
-        Context envCtx = (Context) initCtx.lookup("java:comp/env");
-        String fileName = (String) envCtx.lookup(name);
-        URL filePath = getClass().getClassLoader().getResource(fileName);
-        return filePath;
-    }
-
-    /**
-     * Initialize the WebClientRecommender instance for one time only.
+     * Output JSON-formatted results.
      *
      * @param request
      * @param response
+     * @param items
      * @throws IOException
      */
-    public void initializeClientRecommender(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        synchronized (this) {
-            if (recommender == null) {
-                try {
-                    MyrrixClientConfiguration config = new MyrrixClientConfiguration();
-                    config.setHost(request.getServerName());
-                    config.setPort(request.getServerPort());
-                    recommender = new WebClientRecommender(getPropFilePath("proplist").toURI(), config);
-                } catch (URISyntaxException use) {
-                    response.sendError(HttpServletResponse.SC_BAD_REQUEST, use.toString());
-                } catch (NamingException ne) {
-                    response.sendError(HttpServletResponse.SC_BAD_REQUEST, ne.toString());
-                } catch (TasteException te) {
-                    response.sendError(HttpServletResponse.SC_BAD_REQUEST, te.toString());
-                }
+    protected final void output(HttpServletRequest request,
+            ServletResponse response,
+            List<TranslatedRecommendedItem> items) throws IOException {
+
+        PrintWriter writer = response.getWriter();
+        // Always print JSON
+        writer.write('[');
+        boolean first = true;
+        for (TranslatedRecommendedItem item : items) {
+            if (first) {
+                first = false;
+            } else {
+                writer.write(',');
             }
+            writer.write("[\"");
+            writer.write(item.getItemID());
+            writer.write("\",");
+            writer.write(Float.toString(item.getValue()));
+            writer.write(']');
         }
+        writer.write(']');
+        writer.flush();
     }
 }

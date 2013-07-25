@@ -9,6 +9,7 @@ import net.myrrix.client.ClientRecommender;
 import net.myrrix.client.MyrrixClientConfiguration;
 import net.myrrix.client.translating.TranslatedRecommendedItem;
 import net.myrrix.client.translating.TranslatingClientRecommender;
+import net.myrrix.client.translating.TranslatingRecommender;
 import org.apache.mahout.cf.taste.common.TasteException;
 
 /**
@@ -24,35 +25,15 @@ import org.apache.mahout.cf.taste.common.TasteException;
  */
 abstract class AbstractClientRecommender {
 
-    protected TranslatingClientRecommender clientRecommender;
+    protected TranslatingRecommender clientRecommender;
 
-    public AbstractClientRecommender(MyrrixClientConfiguration myrrixClientConfiguration) {
-        try {
-            clientRecommender = new TranslatingClientRecommender(new ClientRecommender(myrrixClientConfiguration));
-        } catch (IOException ex) {
-            Logger.getLogger(CLIClientRecommender.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public AbstractClientRecommender(TranslatingRecommender clientRecommender) {
+        this.clientRecommender = clientRecommender;
     }
 
-    public List<TranslatedRecommendedItem> recommend(String recommendTo, String recommendType, int howMany) throws TasteException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+    public abstract List<TranslatedRecommendedItem> recommend(String recommendTo, int howMany) throws TasteException;
 
-    public List<TranslatedRecommendedItem> recommendAnonymous(String recommendType, int howMany, String[] list) throws TasteException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+    public abstract List<TranslatedRecommendedItem> recommendAnonymous(String[] list, int howMany) throws TasteException;
 
-    public List<TranslatedRecommendedItem> recommend(String idListFile, String recommendTo, String recommendType, int howMany) throws TasteException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public List<TranslatedRecommendedItem> recommendAnonymous(String idListFile, String recommendType, int howMany, String[] list) throws TasteException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public void ingest(String csvFile) throws TasteException {
-    }
-
-    public void ingest(Reader csvReader) throws TasteException {
-    }
+    public abstract void ingest(Reader csvReader) throws TasteException;
 }
