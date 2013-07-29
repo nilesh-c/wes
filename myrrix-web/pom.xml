@@ -12,7 +12,7 @@
     <packaging>war</packaging>
     <name>Myrrix Web (WAR)</name>
     <version>0.1</version>
-    <description>Customized Myrrix WAR with rescorer</description>
+    <description>Customized Myrrix WAR</description>
     <url>http://myrrix.com/documentation-serving-layer/</url>
     <inceptionYear>2012</inceptionYear>
     <build>
