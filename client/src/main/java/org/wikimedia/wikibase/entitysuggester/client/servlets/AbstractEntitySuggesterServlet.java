@@ -1,10 +1,15 @@
 package org.wikimedia.wikibase.entitysuggester.client.servlets;
 
 import com.google.common.base.Splitter;
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.FieldNamingStrategy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -61,21 +66,12 @@ public abstract class AbstractEntitySuggesterServlet extends AbstractMyrrixServl
 
         PrintWriter writer = response.getWriter();
         // Always print JSON
-        writer.write('[');
-        boolean first = true;
+        List suggestedProperties = new ArrayList();
         for (TranslatedRecommendedItem item : items) {
-            if (first) {
-                first = false;
-            } else {
-                writer.write(',');
-            }
-            writer.write("[\"");
-            writer.write(item.getItemID());
-            writer.write("\",");
-            writer.write(Float.toString(item.getValue()));
-            writer.write(']');
+            suggestedProperties.add(new Object[]{item.getItemID(), item.getValue()});
         }
-        writer.write(']');
+        String json = new Gson().toJson(suggestedProperties);
+        writer.write(json);
         writer.flush();
     }
 }
