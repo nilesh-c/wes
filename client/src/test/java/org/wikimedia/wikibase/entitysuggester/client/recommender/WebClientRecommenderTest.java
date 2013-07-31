@@ -55,7 +55,8 @@ public class WebClientRecommenderTest {
         ArrayList<String> propertyIDList = new ArrayList<String>();
         propertyIDList.add("P67");
         propertyIDList.add("P192");
-        AbstractClientRecommender webClientRecommender = new WebClientRecommender(propertyIDList, translatingRecommender);
+        translatingRecommender.addItemIDs(propertyIDList);
+        AbstractClientRecommender webClientRecommender = new WebClientRecommender(translatingRecommender);
 
         // Test with a wikibaseItem that is in the Myrrix model
         List<TranslatedRecommendedItem> suggestions = webClientRecommender.recommend("Q87", 10);
@@ -72,7 +73,8 @@ public class WebClientRecommenderTest {
         ArrayList<String> propertyIDList = new ArrayList<String>();
         propertyIDList.add("P67");
         propertyIDList.add("P192");
-        AbstractClientRecommender webClientRecommender = new WebClientRecommender(propertyIDList, translatingRecommender);
+        translatingRecommender.addItemIDs(propertyIDList);
+        AbstractClientRecommender webClientRecommender = new WebClientRecommender(translatingRecommender);
 
         List<TranslatedRecommendedItem> suggestions = webClientRecommender.recommendAnonymous(new String[]{"P67", "P78"}, 2);
         assertEquals("P67", suggestions.get(0).getItemID());

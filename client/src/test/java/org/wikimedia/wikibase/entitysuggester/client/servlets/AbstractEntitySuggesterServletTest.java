@@ -65,11 +65,11 @@ public class AbstractEntitySuggesterServletTest {
         ArrayList<String> propertyIDList = new ArrayList<String>();
         propertyIDList.add("P67");
         propertyIDList.add("P192");
-        WebClientRecommender webClientRecommender = new WebClientRecommender(propertyIDList, translatingRecommender);
+        translatingRecommender.addItemIDs(propertyIDList);
+        WebClientRecommender webClientRecommender = new WebClientRecommender(translatingRecommender);
 
         servlet.getServletConfig().getServletContext().setAttribute("recommender", webClientRecommender);;
         MockHttpServletRequest mockHttpServletRequest = new MockHttpServletRequest();
-        servlet.initializeClientRecommender(mockHttpServletRequest);
 
         WebClientRecommender fromServlet = servlet.getClientRecommender();
         List<TranslatedRecommendedItem> suggestions = webClientRecommender.recommend("Q87", 10);
