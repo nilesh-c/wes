@@ -1,4 +1,6 @@
 #!/usr/bin/python
+
+"""Creates the DB and tables for wikiparser_db.py to insert into."""
 import sys
 import MySQLdb as mdb
 
@@ -27,6 +29,6 @@ def main():
                     "ENGINE=InnoDB "
                     "CHARSET binary")
         con.commit()
-        
+
 if __name__ == '__main__':
 	main()
