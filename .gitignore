@@ -3,3 +3,8 @@ dist
 /client/target/
 /rescorer/target/
 /myrrix-web/target/
+/client2/target/
+/myrrix-web1/target/
+/myrrix-web2/target/
+/myrrix-claimprops/target/
+/myrrix-refprops/target/
