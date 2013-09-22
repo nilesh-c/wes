@@ -8,16 +8,24 @@
         <version>0.0.2</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>myrrix-web</artifactId>
+    <artifactId>myrrix-web1</artifactId>
     <packaging>war</packaging>
-    <name>Myrrix Web (WAR)</name>
+    <name>Myrrix Web (WAR) - Claim Property Suggester</name>
     <version>0.1</version>
-    <description>Customized Myrrix WAR</description>
+    <description>Customized Myrrix WAR - This will be used to store the claim property suggester model.</description>
     <url>http://myrrix.com/documentation-serving-layer/</url>
     <inceptionYear>2012</inceptionYear>
     <build>
-        <finalName>myrrix-web</finalName>
+        <finalName>myrrix-claimprops</finalName>
         <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>tomcat-maven-plugin</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <configuration>
+                    <path>/myrrix-claimprops</path>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
