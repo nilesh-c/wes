@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.wikimedia.wikibase</groupId>
+        <artifactId>entitysuggester</artifactId>
+        <version>0.1</version>
+    </parent>
+    <groupId>org.wikimedia.wikibase.entitysuggester</groupId>
+    <artifactId>wikiparser</artifactId>
+    <version>0.1</version>
+    <name>Wikiparser InputFormat code</name>
+    <packaging>jar</packaging>
+    <url>http://maven.apache.org</url>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-core</artifactId>
+            <version>0.20.2-cdh3u6</version>
+        </dependency>
+    </dependencies>
+    <repositories>
+        <repository>
+            <id>cloudera</id>
+            <url>https://repository.cloudera.com/artifactory/cloudera-repos/</url>
+        </repository>
+    </repositories>
+</project>
