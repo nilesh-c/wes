@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app version="3.0"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+
+
+    <description>Entity Suggester Backend REST API web application</description>
+    <display-name>Entity Suggester Backend REST API</display-name>
+
+    <distributable/>
+
+<!--TODO: Add a ServletContextListener so that the instances can startup and initialize themselves
+    with backed up versions of the training datasets. This would let us restart the servers
+    without having to POST the training data through the DataIngestServlets.
+    <listener>
+        <listener-class>org.wikimedia.wikibase.entitysuggester.client.InitListener</listener-class>
+    </listener>-->
+<!--    <servlet>
+        <servlet-name>ClaimPropertySuggesterServlet</servlet-name>
+        <servlet-class>org.wikimedia.wikibase.entitysuggester.client.servlets.suggest.ClaimPropertySuggesterServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet>
+        <servlet-name>RefPropertySuggesterServlet</servlet-name>
+        <servlet-class>org.wikimedia.wikibase.entitysuggester.client.servlets.suggest.RefPropertySuggesterServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet>
+        <servlet-name>ValueSuggesterServlet</servlet-name>
+        <servlet-class>org.wikimedia.wikibase.entitysuggester.client.servlets.suggest.ValueSuggesterServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet>
+        <servlet-name>QualifierSuggesterServlet</servlet-name>
+        <servlet-class>org.wikimedia.wikibase.entitysuggester.client.servlets.suggest.QualifierSuggesterServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet>
+        <servlet-name>ClaimPropertyDataIngestServlet</servlet-name>
+        <servlet-class>org.wikimedia.wikibase.entitysuggester.client.servlets.ingest.ClaimPropertyDataIngestServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet>
+        <servlet-name>RefPropertyDataIngestServlet</servlet-name>
+        <servlet-class>org.wikimedia.wikibase.entitysuggester.client.servlets.ingest.RefPropertyDataIngestServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet>
+        <servlet-name>ValueDataIngestServlet</servlet-name>
+        <servlet-class>org.wikimedia.wikibase.entitysuggester.client.servlets.ingest.ValueDataIngestServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet>
+        <servlet-name>QualifierDataIngestServlet</servlet-name>
+        <servlet-class>org.wikimedia.wikibase.entitysuggester.client.servlets.ingest.QualifierDataIngestServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>ClaimPropertySuggesterServlet</servlet-name>
+        <url-pattern>/suggest/claimprops/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RefPropertySuggesterServlet</servlet-name>
+        <url-pattern>/suggest/refprops/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ValueSuggesterServlet</servlet-name>
+        <url-pattern>/suggest/values/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>QualifierSuggesterServlet</servlet-name>
+        <url-pattern>/suggest/qualifiers/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ClaimPropertyDataIngestServlet</servlet-name>
+        <url-pattern>/ingest/claimprops/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RefPropertyDataIngestServlet</servlet-name>
+        <url-pattern>/ingest/refprops/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ValueDataIngestServlet</servlet-name>
+        <url-pattern>/ingest/values/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>QualifierDataIngestServlet</servlet-name>
+        <url-pattern>/ingest/qualifiers/*</url-pattern>
+    </servlet-mapping>-->
+    
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+    
+    <error-page>
+        <exception-type>java.lang.Throwable</exception-type>
+        <location>/error.jspx</location>
+    </error-page>
+    <error-page>
+        <error-code>400</error-code>
+        <location>/error.jspx</location>
+    </error-page>
+    <error-page>
+        <error-code>401</error-code>
+        <location>/error.jspx</location>
+    </error-page>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error.jspx</location>
+    </error-page>
+    <error-page>
+        <error-code>405</error-code>
+        <location>/error.jspx</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/error.jspx</location>
+    </error-page>
+    <error-page>
+        <error-code>503</error-code>
+        <location>/error.jspx</location>
+    </error-page>
+</web-app>
