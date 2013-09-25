@@ -21,7 +21,7 @@
     
     <context-param>
         <param-name>net.myrrix.web.InitListener.LOCAL_INPUT_DIR</param-name>
-        <param-value>myrrix</param-value>
+        <param-value>myrrix-refprops</param-value>
     </context-param>
   
   <!--
@@ -108,16 +108,6 @@
         <servlet-class>net.myrrix.web.servlets.LogServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
-    <servlet>
-        <servlet-name>EntitySuggesterServlet</servlet-name>
-        <servlet-class>org.wikimedia.wikibase.entitysuggester.client.servlets.EntitySuggesterServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    <servlet>
-        <servlet-name>DataIngestServlet</servlet-name>
-        <servlet-class>org.wikimedia.wikibase.entitysuggester.client.servlets.DataIngestServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
     
     <servlet-mapping>
         <servlet-name>PreferenceServlet</servlet-name>
@@ -166,14 +156,6 @@
     <servlet-mapping>
         <servlet-name>AllItemIDsServlet</servlet-name>
         <url-pattern>/item/allIDs</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>EntitySuggesterServlet</servlet-name>
-        <url-pattern>/entitysuggester/suggest/*</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>DataIngestServlet</servlet-name>
-        <url-pattern>/entitysuggester/ingest/*</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>

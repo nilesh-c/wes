@@ -8,7 +8,7 @@
         <version>0.0.2</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>myrrix-web2</artifactId>
+    <artifactId>myrrix-refprops</artifactId>
     <packaging>war</packaging>
     <name>Myrrix Web (WAR) - Source Ref Property Suggester</name>
     <version>0.1</version>
@@ -41,7 +41,6 @@
                         </resource>
                     </webResources>
                     <packagingExcludes>WEB-INF/web.xml</packagingExcludes>
-                    <webXml>es-web.xml</webXml>
                 </configuration>
             </plugin>
         </plugins>
@@ -86,4 +85,7 @@
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </repository>
     </repositories>
+    <properties>
+        <netbeans.hint.deploy.server>Tomcat</netbeans.hint.deploy.server>
+    </properties>
 </project>

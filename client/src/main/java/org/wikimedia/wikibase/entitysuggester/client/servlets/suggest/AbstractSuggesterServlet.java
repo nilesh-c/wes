@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
-import javax.servlet.UnavailableException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.mahout.cf.taste.common.TasteException;
@@ -41,10 +39,7 @@ public abstract class AbstractSuggesterServlet extends AbstractEntitySuggesterSe
     public void init() throws ServletException {
         Recommender recommender = getRecommender();
         if (recommender == null) {
-            WebServlet webServlet = this.getClass().getAnnotation(WebServlet.class);
-            String ingestAction = "/entitysuggester" + webServlet.urlPatterns();
-            throw new UnavailableException("Please initialize the recommendation engine by using " + ingestAction
-                    + "before making any requests to this suggester servlet");
+            throw new ServletException("Please initialize the recommendation engine by using the ingest servlet before making any requests to this suggester servlet");
         }
     }
 
@@ -67,7 +62,7 @@ public abstract class AbstractSuggesterServlet extends AbstractEntitySuggesterSe
             inputList = INPUT_SEPARATOR.splitToList(pathInfo.substring(1));
         }
         int howMany = getHowMany(request);
-        
+
         try {
             String jsonSuggestions = getRecommender().recommendAsJSON(inputList, howMany);
             response.getWriter().write(jsonSuggestions);
@@ -85,9 +80,9 @@ public abstract class AbstractSuggesterServlet extends AbstractEntitySuggesterSe
         try {
             howMany = Integer.parseInt(request.getParameter("howMany"));
         } catch (NumberFormatException nfe) {
-            return 0;
+            howMany = 0;
         }
-        Preconditions.checkArgument(howMany > 0, "howMany must be positive");
+        Preconditions.checkArgument(howMany > 0, "URL parameter howMany is mandatory and must be positive");
         return howMany;
     }
 }

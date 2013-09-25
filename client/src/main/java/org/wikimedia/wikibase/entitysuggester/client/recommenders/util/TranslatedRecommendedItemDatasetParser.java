@@ -89,14 +89,14 @@ public class TranslatedRecommendedItemDatasetParser {
         float countSum = 0, count = 0;
 
         if (keyFound.apply(temp) == true) {
-            key = temp;
-            temp = reader.readLine();
+            key = temp.trim();
+            temp = reader.readLine().trim();
         }
 
         while (keyFound.apply(temp) == false) {
-            String strings[] = temp.split(",");
+            String strings[] = temp.trim().split(",");
             String item = strings[0].trim();
-            count = Integer.parseInt(strings[1].trim());
+            count = Integer.parseInt(strings[1]);
             countSum += count;
             list.add(new TranslatedRecommendedItemImpl(item, count));
             temp = reader.readLine();
